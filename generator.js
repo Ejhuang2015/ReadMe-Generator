@@ -45,9 +45,14 @@ ${contribute}
 `,
 
     // Create the contributors section
-    projectContributors: (contributors) => `# Contributors
-${contributors}
-`,
+    projectContributors: function (contributors) {
+        // Parse the array into a string which we can then split by commas and join everything with a new line.
+        const contributorsPrefix = contributors.map(addListPrefix);
+        const contributorsList = contributorsPrefix.toString().split(",").join("\n");
+        return `# Contributors
+${contributorsList}
+`
+    },
 
     // Create the footer (Questions and license)
     projectFooter: (user, contact) => `# Questions
@@ -57,3 +62,8 @@ Any comments, questions, or concerns? Email me  at ${contact}.
 # License
 View the license at [License Link](./license.txt)`,
 };
+
+function addListPrefix(item) {
+    return `* ${item}
+`
+}

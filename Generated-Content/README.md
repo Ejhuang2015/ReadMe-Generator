@@ -1,28 +1,27 @@
-# Super duper project
-![Other License](https://img.shields.io/badge/License-Other-blue)
+# My project
+![GNU License](https://img.shields.io/badge/License-GNU-blue)
 
-Its a wonderful project
+Description about my project
 ## Table of Contents
-* [Installation](#installation)
-* [Usage](#usage)
-* [Test Examples](#test-examples)
-* [Contributing](#how-to-contribute)
 * [Contributors](#contributors)
 * [Questions](#questions)
 * [License](#license)
-# Installation
-
-# Usage
-
-# Test Examples
-
-# How to Contribute
-
 # Contributors
-,,,
+* 1
+
+* 2
+
+* 3
+
+* 4
+
+* 5
+
+* 
+
 # Questions
-You can find me at my [github page here](https://github.com/bobby25).
-Any comments, questions, or concerns? Email me  at bobby@mailinator.com.
+You can find me at my [github page here](https://github.com/ejhuang2015).
+Any comments, questions, or concerns? Email me  at ejhuang.2015@gmail.com.
 
 # License
 View the license at [License Link](./license.txt)
