@@ -1,19 +1,17 @@
-function tableContents (install, usage, test, contributing, contributors){
-  const addInstall = install ? `* [Installation](#installation)
-` : "";
-  const addUsage = usage ? `* [Usage](#usage)
-` : "";
-  const addTest = test ? `* [Test Examples](#test-examples)
-` : "";
-  const addContributing = contributing ? `* [Contributing](#how-to-contribute)
-` : "";
-  const addContributors = contributors ? `* [Contributors](#contributors)
-` : "";
-  return `## Table of Contents
-${addInstall}${addUsage}${addTest}${addContributing}${addContributors}
-* [Questions](#questions)
-* [License](#license)
-`
-}
+/**
+ * Checkbox list examples
+ */
 
-console.log(tableContents(true,false,false,true,true));
+'use strict';
+var inquirer = require('inquirer');
+
+inquirer
+  .prompt({
+      type: "checkbox",
+      name: "optional",
+      message: "Choose which sections you want to include in your Read Me file.",
+      choices: ["Installation", "Usage", "Test", "Contributing", "Contributors"]
+  })
+  .then((answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
+  });

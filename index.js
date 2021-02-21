@@ -56,27 +56,32 @@ const installPrompt = {
     type: "input",
     name: "content",
     message: "Please enter your instructions for installation: ",
+    default: "Install the program.",
 }
 const usagePrompt = {
     type: "input",
     name: "content",
     message: "Please enter your instructions for usage: ",
+    default: "Use the program.",
 }
 const testPrompt = {
     type: "input",
     name: "content",
     message: "Please enter your instructions for testing: ",
+    default: "Enter random values.",
 }
 const contributePrompt = {
     type: "input",
     name: "content",
     message: "Please enter your instructions for contributing: ",
+    default: "Copy and edit",
 }
 const contributorsPrompt = [
     {
         type: "input",
         name: "content",
         message: "Please enter a contributor to your project: ",
+        default: "Me, myself, and I.",
     },
     {
         type: "list",
@@ -103,16 +108,15 @@ function start() {
     inquirer
         .prompt(reqQuestions)
         .then(reqAnswers => {
-            // Check and Create the folder where files will be generated to 
+            // Check for or Create the folder where files will be generated to 
             if (!fs.existsSync("./Generated-Content")) {
                 fs.mkdirSync("./Generated-Content");
             }
-            
-            // Creates the header section and makes a new readme with the header information
-            const header = generator.projectHeader(reqAnswers.title, reqAnswers.description, reqAnswers.license);
-            fs.writeFile('./Generated-Content/README.md', header, (err) => err ? console.error(err) : console.log('Read me started!'));
 
-            // Push the username and contact information to the array
+            // Creates the header section and makes a new readme with the header information (The title, license badge, and description)
+            fs.writeFileSync('./Generated-Content/README.md', generator.projectHeader(reqAnswers.title, reqAnswers.description, reqAnswers.license));
+
+            // Push the username and contact information to the array for later use in the footer
             footerInfo.push(reqAnswers.username, reqAnswers.contact);
 
             // If user chose Other for their license, ask for a link to their license
@@ -121,42 +125,43 @@ function start() {
             }
             // If user chose any option for their license, copy the premade license into a new file called license.txt
             else {
-                fs.copyFile(`./Licenses/${reqAnswers.license}.txt`, './Generated-Content/license.txt', (err) => err ? console.error(err) : console.log('License copied!'));
+                fs.copyFileSync(`./Licenses/${reqAnswers.license}.txt`, './Generated-Content/license.txt');
                 // Move on to optional checkbox
                 optionalCheck();
             }
         });
 }
+
 // Ask for the other license if chosen
 function choseOtherL() {
     inquirer
         .prompt(otherLicense)
         .then(answer => {
             // Creates a new license.txt with the user's license
-            fs.writeFile('./Generated-Content/license.txt', answer.otherLicense, (err) => err ? console.error(err) : console.log('New License created!'));
+            fs.writeFileSync('./Generated-Content/license.txt', answer.otherLicense);
+            // Move on to optional checkbox
             optionalCheck();
         });
 }
+
 // Ask for which optional sections to add
 function optionalCheck() {
     inquirer
         .prompt(optionalPrompts)
         .then(answer => {
-            // Shorten variable name
-            let choices = answer.optional;
-            const installBool = choices.includes("Installation");
-            const useBool = choices.includes("Usage");
-            const testBool = choices.includes("Test")
-            const contributeBool = choices.includes("Contributing");
-            const contributorBool = choices.includes("Contributors");
+            // Shorten variable names
+            const installBool = answer.optional.includes("Installation");
+            const useBool = answer.optional.includes("Usage");
+            const testBool = answer.optional.includes("Test")
+            const contributeBool = answer.optional.includes("Contributing");
+            const contributorBool = answer.optional.includes("Contributors");
 
             // Create a table of contents based on user's choices
-            const tableOfContents = generator.projectTableContents(installBool, useBool, testBool, contributeBool, contributorBool);
-            fs.appendFileSync('./Generated-Content/README.md', tableOfContents)
+            fs.appendFileSync('./Generated-Content/README.md', generator.projectTableContents(installBool, useBool, testBool, contributeBool, contributorBool))
 
             // If installation was selected, do the installation section
             if (installBool) {
-                installation(useBool,testBool,contributeBool,contributorBool);
+                installation(useBool, testBool, contributeBool, contributorBool);
             }
             // If the previous option(s) was not selected but this was, do the usage section
             else if (useBool) {
@@ -179,7 +184,6 @@ function optionalCheck() {
                 endSection();
             }
         });
-
 }
 
 function installation(use, test, contribute, contributors) {
@@ -187,16 +191,16 @@ function installation(use, test, contribute, contributors) {
         .prompt(installPrompt)
         .then(answer => {
             fs.appendFileSync('./Generated-Content/README.md', generator.projectInstallation(answer.content));
-            if (use){
+            if (use) {
                 usage(test, contribute, contributors);
             }
-            else if (test){
+            else if (test) {
                 testSection(contribute, contributors);
             }
-            else if (contribute){
+            else if (contribute) {
                 contributeSection(contributors);
             }
-            else if (contributors){
+            else if (contributors) {
                 contributorSection();
             }
             else {
@@ -209,13 +213,13 @@ function usage(test, contribute, contributors) {
         .prompt(usagePrompt)
         .then(answer => {
             fs.appendFileSync('./Generated-Content/README.md', generator.projectUsage(answer.content));
-            if (test){
+            if (test) {
                 testSection(contribute, contributors);
             }
-            else if (contribute){
+            else if (contribute) {
                 contributeSection(contributors);
             }
-            else if (contributors){
+            else if (contributors) {
                 contributorSection();
             }
             else {
@@ -228,10 +232,10 @@ function testSection(contribute, contributors) {
         .prompt(testPrompt)
         .then(answer => {
             fs.appendFileSync('./Generated-Content/README.md', generator.projectTest(answer.content));
-            if (contribute){
+            if (contribute) {
                 contributeSection(contributors);
             }
-            else if (contributors){
+            else if (contributors) {
                 contributorSection();
             }
             else {
@@ -244,7 +248,7 @@ function contributeSection(contributors) {
         .prompt(contributePrompt)
         .then(answer => {
             fs.appendFileSync('./Generated-Content/README.md', generator.projectContributing(answer.content));
-            if (contributors){
+            if (contributors) {
                 contributorSection();
             }
             else {
@@ -272,8 +276,6 @@ function endSection() {
     fs.appendFileSync('./Generated-Content/README.md', generator.projectFooter(footerInfo[0], footerInfo[1]));
     console.log("Readme file is finished!");
 }
-
-
 
 // Initiate
 main();
