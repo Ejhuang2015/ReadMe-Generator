@@ -1,93 +1,59 @@
 module.exports = {
-    projectTitle: createTitle(title),
-    projectDescription: createDescription(description, license),
-    projectTableContents: createTOC(install, usage, test, contributing, contributors),
-    projectInstallation: createInstallation(install),
-    projectUsage: createUsage(),
-    projectTest: createTest(),
-    projectContributing: createContributing(),
-    projectContributors: createContributors(),
-    projectContact: createContact(),
-    projectLicense: createLicense(),
-  };
+    // Create the header (Title and description)
+    projectHeader: (title, description, license) => `# ${title}
+![${license} License](https://img.shields.io/badge/License-${license}-blue)
 
-// Generate the Title section
-function createTitle (title) {
-    const titleSection = `# ${title}`;
-    return titleSection;
-}
+${description}
+`,
 
-// Generate the Description section
-function createDescription (description, license) {
-    const descriptionSection = `![${license} License](https://img.shields.io/badge/License-${license}-blue)
-    
-    ${description}`;
-    return descriptionSection;
-}
+    // Create the table of contents
+    projectTableContents: function (install, usage, test, contributing, contributors) {
+        const addInstall = install ? `* [Installation](#installation)
+` : "";
+        const addUsage = usage ? `* [Usage](#usage)
+` : "";
+        const addTest = test ? `* [Test Examples](#test-examples)
+` : "";
+        const addContributing = contributing ? `* [Contributing](#how-to-contribute)
+` : "";
+        const addContributors = contributors ? `* [Contributors](#contributors)
+` : "";
+        return `## Table of Contents
+${addInstall}${addUsage}${addTest}${addContributing}${addContributors}* [Questions](#questions)
+* [License](#license)
+`
+    },
 
-// Generate the Table of Contents
-function createTOC (install, usage, test, contributing, contributors) {
-    const addInstall = install ? `* [Installation](#installation)
-    ` : "";
-    const addUsage = usage ? `* [Usage](#usage)
-    ` : "";
-    const addTest = test ? `* [Test Examples](#test-examples)
-    ` : "";
-    const addContributing = contributing ? `* [Contributing](#how-to-contribute)
-    ` : "";
-    const addContributors = contributors ? `* [Contributors](#contributors)
-    ` : "";
-    const tableContentsSection = `## Table of Contents
-    ${addInstall}${addUsage}${addTest}${addContributing}${addContributors}
-    * [Contact](#contact)
-    * [License](#license)`; 
-    return tableContentsSection;
-}
+    // Create the installation section
+    projectInstallation: (install) => `# Installation
+${install}
+`,
 
-// Generate the Installation section
-function createInstallation(install) {
-    const installationSection = `# Installation
-    ${install}`;
-    return installationSection;
-}
+    // Create the usage section
+    projectUsage: (usage) => `# Usage
+${usage}
+`,
 
-// Generate the Usage section
-function createUsage() {
-    const usageSection = `# Usage`;
-    return usageSection;
-}
+    // Create the test section
+    projectTest: (test) => `# Test Examples
+${test}
+`,
 
-// Generate the Test section
-function createTest() {
-    const testSection = `# Test Examples
-    `;
-    return testSection;
-}
+    // Create the contributing section
+    projectContributing: (contribute) => `# How to Contribute
+${contribute}
+`,
 
-// Generate the Contributing section
-function createContributing() {
-    const contributingSection = `# How to Contribute
-    `;
-    return contributingSection;
-}
+    // Create the contributors section
+    projectContributors: (contributors) => `# Contributors
+${contributors}
+`,
 
-// Generate the Contributors section
-function createContributors() {
-    const contributorsSection = `# Contributors
-    `;
-    return contributorsSection;
-}
+    // Create the footer (Questions and license)
+    projectFooter: (user, contact) => `# Questions
+You can find me at my [github page here](https://github.com/${user}).
+Any comments, questions, or concerns? Email me  at ${contact}.
 
-// Generate the Contact section
-function createContact() {
-    const contactSection = `# Contact
-    `;
-    return contactSection;
-}
-
-// Generate the License section
-function createLicense(license) {
-    const licenseSection = `# License
-    `;
-    return licenseSection;
-}
+# License
+View the license at [License Link](./license.txt)`,
+};

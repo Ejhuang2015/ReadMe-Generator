@@ -6,14 +6,6 @@
 
 ${description}
 
-## Prerequisites
-
-Before you begin, ensure you have met the following requirements:
-<!--- These are just example requirements. Add, duplicate or remove as required --->
-* You have installed the latest version of `<coding_language/dependency/requirement_1>`
-* You have a `<Windows/Linux/Mac>` machine. State which OS is supported/which is not.
-* You have read `<guide/link/documentation_related_to_project>`.
-
 ## Installing <project_name>
 
 To install <project_name>, follow these steps:
@@ -36,6 +28,9 @@ To use <project_name>, follow these steps:
 ```
 
 Add run commands and examples you think users will find useful. Provide an options reference for bonus points!
+
+## Testing
+stuff about testing
 
 ## Contributing to <project_name>
 <!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
