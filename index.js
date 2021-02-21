@@ -80,8 +80,8 @@ const contributorsPrompt = [
     {
         type: "input",
         name: "content",
-        message: "Please enter a contributor to your project: ",
-        default: "Me, myself, and I.",
+        message: "Please enter a contributor to your project (One at a time!): ",
+        default: "Me myself and I.",
     },
     {
         type: "list",
