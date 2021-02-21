@@ -50,6 +50,8 @@ ${contribute}
         const contributorsPrefix = contributors.map(addListPrefix);
         const contributorsList = contributorsPrefix.toString().split(",").join("\n");
         return `# Contributors
+Thanks to the following people who have contributed to this project:
+
 ${contributorsList}
 `
     },
@@ -60,7 +62,8 @@ You can find me at my [github page here](https://github.com/${user}).
 Any comments, questions, or concerns? Email me  at ${contact}.
 
 # License
-View the license at [License Link](./license.txt)`,
+### Copyright (c) [2021] [${user}]
+View the license in [license.txt](./license.txt)`,
 };
 
 function addListPrefix(item) {
