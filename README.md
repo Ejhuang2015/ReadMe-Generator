@@ -12,7 +12,7 @@ This is a small console application that utilizes node.js, npm, and inquirer.js.
 * [Questions](#questions)
 * [License](#license)
 # Installation
-To install this application, download the folder and ensure that the index.js, generator.js, and the package.json are present. You must also install node.js to your system. Open a command console of your choice (such as gitbash or terminal) and do a "npm install". This should download the required inquirer.js module. From here, you can run the index.js file within your command console!
+To install this application, download the folder and ensure that the index.js, generator.js, License folder, and the package.json are present. You must also install node.js to your system. Open a command console of your choice (such as gitbash or terminal) and do a "npm install". This should download the required inquirer.js module. From here, you can run the index.js file within your command console!
 # Contributors
 Thanks to the following people who have contributed to this project:
 
